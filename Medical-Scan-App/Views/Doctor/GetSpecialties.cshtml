@@ -1,0 +1,64 @@
+﻿@model List<Specialty>
+@{
+    ViewData["Title"] = "GetSpecialties";
+    SelectList SpecialtyList = new SelectList(Model, "ID", "Name");
+}
+
+<div class="container">
+<h1>Doctors</h1>
+    <div>
+        <span>Specialty : </span>
+        <select id="SpecialtyID" name="SpecialityID" asp-items="SpecialtyList" onchange="GetDoctors()"></select>
+    </div>
+
+
+    <div class="row" id="DocCard">
+        
+    </div>
+
+    
+</div>
+
+ 
+@section Scripts{
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+    <script>
+    function GetDoctors() 
+    {
+        var specialtyId = $("#SpecialtyID").val();
+        console.log(specialtyId);
+
+        $.ajax({
+           
+            url: "/Doctor/GetDoctorsBySpecialties",
+            data: { "specialtyId": specialtyId },
+            success: function (result) 
+            {
+
+              $("#DocCard").empty();
+
+               for(let item of result)
+               {
+                   var Card = `
+                             <div class="col-lg-4 col-md-3 col-sm-6 p-2">
+                             <div class="card">
+                                <div class="card-body">
+                                  <h5 class="card-title" >${item.name}</h5>
+                                  <p class="card-text" >${item.doctorSpecialties[0].specialty.name}</p>
+                                </div>
+                             </div>
+                           </div>`;
+                           
+                            
+                   $("#DocCard").append(Card);
+               }
+                        
+               
+            }
+
+        });
+    }
+</script>
+
+}

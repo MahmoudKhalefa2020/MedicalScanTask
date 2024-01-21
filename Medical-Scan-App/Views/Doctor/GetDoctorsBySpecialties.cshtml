@@ -1,0 +1,18 @@
+﻿@model List<Doctor>
+@{
+    ViewData["Title"] = "GetDoctorsBySpecialties";
+    SelectList DoctorList = new SelectList(Model, "ID", "Name");
+
+}
+
+<h1>GetDoctorsBySpecialties</h1>
+
+@foreach(var item in Model)
+{
+    <div>
+        @item.Name
+    </div>
+}
+
+
+@* <select id="DocID" name="DocID" asp-items="DoctorList"></select> *@

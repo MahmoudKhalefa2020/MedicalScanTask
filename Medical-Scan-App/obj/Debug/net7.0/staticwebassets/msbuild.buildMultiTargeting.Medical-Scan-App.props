@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\Medical-Scan-App.props" />
+</Project>
